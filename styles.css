@@ -58,6 +58,27 @@ button {
   --bar: rgba(24, 33, 31, 0.95);
 }
 
+.chapter-illustration {
+  margin: 34px 0 4px;
+}
+
+.chapter-illustration img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 46px rgba(30, 35, 31, 0.16);
+}
+
+.chapter-illustration figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.82em;
+  line-height: 1.7;
+  text-align: center;
+}
+
 .topbar {
   position: sticky;
   z-index: 20;

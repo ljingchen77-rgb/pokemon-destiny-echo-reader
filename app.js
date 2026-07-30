@@ -40,6 +40,7 @@ function render(scrollTop = true) {
   document.querySelector("#chapter-title").textContent = chapter.title;
   document.querySelector("#word-count").textContent = `约 ${chapter.characterCount.toLocaleString("zh-CN")} 字`;
   document.querySelector("#chapter-body").innerHTML = markdown(chapter.body);
+  document.querySelector("#chapter-illustration").hidden = current !== 19;
   document.querySelector("#open-progress").textContent = `${current + 1}/${chapters.length}`;
   document.querySelector("#progress").style.width = `${Math.round(((current + 1) / chapters.length) * 100)}%`;
 
