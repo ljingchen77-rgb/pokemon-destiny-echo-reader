@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#526653" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>宝可梦：命途回声｜手机阅读版</title>
+    <meta name="description" content="程路与索罗亚的宝可梦同人长篇，第一卷《白榆仍停在七年前》。" />
+    <meta property="og:title" content="宝可梦：命途回声" />
+    <meta property="og:description" content="第一卷 · 白榆仍停在七年前" />
+    <meta property="og:image" content="./og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+
+    <section class="unlock-gate" id="unlock-gate">
+      <form class="unlock-card" id="unlock-form">
+        <div class="unlock-mark">私</div>
+        <h1>私人阅读</h1>
+        <p>正文已加密，请输入阅读密码。</p>
+        <label for="reader-password">阅读密码</label>
+        <input id="reader-password" type="password" autocomplete="current-password" required />
+        <button type="submit">解锁阅读</button>
+        <small id="unlock-message" aria-live="polite"></small>
+      </form>
+    </section>
+    <main id="reader" hidden class="reader theme-paper">
+      <header class="topbar">
+        <button class="icon-button" id="open-menu" aria-label="打开章节目录"><span></span><span></span><span></span></button>
+        <div class="topbar-title"><span>宝可梦：命途回声</span><small>第一卷 · 白榆仍停在七年前</small></div>
+        <button class="chapter-count" id="open-progress" aria-label="查看阅读进度"></button>
+      </header>
+      <div class="progress-track"><div id="progress"></div></div>
+      <article class="reading-sheet">
+        <div class="volume-mark">第一卷 · 白榆仍停在七年前</div>
+        <h1 id="chapter-title">正文加载中…</h1>
+        <div class="chapter-meta"><span id="word-count"></span><span>稳定阅读版</span></div>
+        <div class="chapter-body" id="chapter-body"><p>正在载入章节内容。如果长时间没有显示，请刷新页面。</p></div>
+      </article>
+      <nav class="chapter-nav" aria-label="章节导航">
+        <button id="previous"><small>上一章</small><span></span></button>
+        <button id="next"><small>下一章</small><span></span></button>
+      </nav>
+      <div class="reading-tools" aria-label="阅读设置">
+        <div class="theme-options">
+          <button data-theme="paper" class="active">日间</button>
+          <button data-theme="green">护眼</button>
+          <button data-theme="night">夜间</button>
+        </div>
+        <div class="font-options">
+          <button id="font-down" aria-label="减小字号">A−</button><span id="font-size">19</span><button id="font-up" aria-label="增大字号">A＋</button>
+        </div>
+      </div>
+      <footer><span>手机阅读版 · 阅读位置保存在当前设备</span><span>非官方宝可梦同人创作</span></footer>
+      <div class="drawer-backdrop" id="backdrop"></div>
+      <aside class="chapter-drawer" id="drawer">
+        <div class="drawer-head"><div><small>宝可梦：命途回声</small><h2>第一卷 · 白榆仍停在七年前</h2></div><button id="close-menu" aria-label="关闭目录">×</button></div>
+        <div class="book-note"><span>第一卷</span><p>一只索罗亚变成了程路失踪七年的姐姐。所有记录却说，他家从来没有过这个女儿。</p></div>
+        <div class="chapter-list" id="chapter-list"></div>
+      </aside>
+    </main>
+    <script src="./unlock.js"></script>
+  </body>
+</html>
