@@ -3,12 +3,9 @@ const form = document.querySelector("#unlock-form");
 const input = document.querySelector("#reader-password");
 const message = document.querySelector("#unlock-message");
 const fromBase64 = (value) => Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+let readerPassword = "";
 
-async function unlock(password) {
-  const payload = await fetch("./payload.json", { cache: "no-store" }).then((response) => {
-    if (!response.ok) throw new Error("encrypted payload unavailable");
-    return response.json();
-  });
+async function decryptPayload(payload, password) {
   const material = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(password),
@@ -23,13 +20,32 @@ async function unlock(password) {
     false,
     ["decrypt"],
   );
-  const decrypted = await crypto.subtle.decrypt(
+  return crypto.subtle.decrypt(
     { name: "AES-GCM", iv: fromBase64(payload.iv), tagLength: 128 },
     key,
     fromBase64(payload.data),
   );
+}
+
+async function unlock(password) {
+  const payload = await fetch("./payload.json", { cache: "no-store" }).then((response) => {
+    if (!response.ok) throw new Error("encrypted payload unavailable");
+    return response.json();
+  });
+  const decrypted = await decryptPayload(payload, password);
+  readerPassword = password;
   window.__CHAPTERS__ = JSON.parse(new TextDecoder().decode(decrypted));
 }
+
+window.__loadIllustration = async (id) => {
+  if (!readerPassword) throw new Error("reader is locked");
+  const payload = await fetch("./illustrations/" + id + ".json", { cache: "no-store" }).then((response) => {
+    if (!response.ok) throw new Error("encrypted illustration unavailable");
+    return response.json();
+  });
+  const bytes = await decryptPayload(payload, readerPassword);
+  return URL.createObjectURL(new Blob([bytes], { type: payload.mime || "image/png" }));
+};
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();

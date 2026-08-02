@@ -3,6 +3,8 @@ const reader = document.querySelector("#reader");
 let current = 0;
 let fontSize = 19;
 let theme = "paper";
+let illustrationToken = 0;
+let illustrationUrls = [];
 
 if (!Array.isArray(chapters) || chapters.length === 0) {
   document.querySelector("#chapter-title").textContent = "章节加载失败";
@@ -31,6 +33,40 @@ function markdown(content) {
   }).join("");
 }
 
+async function renderIllustrations(illustrations) {
+  const holder = document.querySelector("#chapter-illustrations");
+  const token = ++illustrationToken;
+  illustrationUrls.forEach((url) => URL.revokeObjectURL(url));
+  illustrationUrls = [];
+  if (!illustrations.length) {
+    holder.hidden = true;
+    holder.innerHTML = "";
+    return;
+  }
+  holder.hidden = false;
+  holder.innerHTML = '<p class="illustration-loading">插画加载中…</p>';
+  try {
+    const loaded = await Promise.all(illustrations.map(async (illustration) => ({
+      ...illustration,
+      url: await window.__loadIllustration(illustration.id),
+    })));
+    if (token !== illustrationToken) {
+      loaded.forEach((illustration) => URL.revokeObjectURL(illustration.url));
+      return;
+    }
+    illustrationUrls = loaded.map((illustration) => illustration.url);
+    holder.innerHTML = loaded.map((illustration) => `
+      <figure class="chapter-illustration">
+        <img src="${illustration.url}" alt="${escapeHtml(illustration.alt)}" loading="lazy" />
+        <figcaption>${escapeHtml(illustration.caption)}</figcaption>
+      </figure>`).join("");
+  } catch {
+    if (token === illustrationToken) {
+      holder.innerHTML = '<p class="illustration-loading">插画暂时未能载入，请切换章节后重试。</p>';
+    }
+  }
+}
+
 function save() {
   localStorage.setItem("white-elm-reader", JSON.stringify({ current, fontSize, theme, scrollY: window.scrollY }));
 }
@@ -40,7 +76,7 @@ function render(scrollTop = true) {
   document.querySelector("#chapter-title").textContent = chapter.title;
   document.querySelector("#word-count").textContent = `约 ${chapter.characterCount.toLocaleString("zh-CN")} 字`;
   document.querySelector("#chapter-body").innerHTML = markdown(chapter.body);
-  document.querySelector("#chapter-illustration").hidden = current !== 19;
+  renderIllustrations(chapter.illustrations || []);
   document.querySelector("#open-progress").textContent = `${current + 1}/${chapters.length}`;
   document.querySelector("#progress").style.width = `${Math.round(((current + 1) / chapters.length) * 100)}%`;
 
