@@ -28,7 +28,7 @@ async function decryptPayload(payload, password) {
 }
 
 async function unlock(password) {
-  const payload = await fetch("./payload.json", { cache: "no-store" }).then((response) => {
+  const payload = await fetch("./payload.json?v=" + encodeURIComponent(window.__READER_VERSION__ || ""), { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("encrypted payload unavailable");
     return response.json();
   });
@@ -39,7 +39,7 @@ async function unlock(password) {
 
 window.__loadIllustration = async (id) => {
   if (!readerPassword) throw new Error("reader is locked");
-  const payload = await fetch("./illustrations/" + id + ".json", { cache: "no-store" }).then((response) => {
+  const payload = await fetch("./illustrations/" + id + ".json?v=" + encodeURIComponent(window.__READER_VERSION__ || ""), { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("encrypted illustration unavailable");
     return response.json();
   });
@@ -58,7 +58,7 @@ form.addEventListener("submit", async (event) => {
     document.querySelector("#unlock-gate").hidden = true;
     document.querySelector("#reader").hidden = false;
     const script = document.createElement("script");
-    script.src = "./app.js";
+    script.src = "./app.js?v=" + encodeURIComponent(window.__READER_VERSION__ || "");
     document.body.append(script);
   } catch {
     message.textContent = "密码不正确，请重新输入。";
