@@ -62,6 +62,12 @@ button {
   margin: 34px 0 4px;
 }
 
+.chapter-illustrations {
+  display: grid;
+  gap: 28px;
+  margin: 34px 0 4px;
+}
+
 .chapter-illustration img {
   display: block;
   width: 100%;
