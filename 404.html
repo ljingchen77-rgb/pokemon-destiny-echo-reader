@@ -6,21 +6,22 @@
     <meta name="theme-color" content="#526653" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <title>宝可梦：命途回声｜手机阅读版</title>
-    <meta name="description" content="程路与索罗亚的宝可梦同人长篇，第一卷《白榆仍停在七年前》。" />
+    <meta name="description" content="姐姐失踪七年后，一只陌生的索罗亚在雨夜叫出了程路的小名。" />
     <meta property="og:title" content="宝可梦：命途回声" />
-    <meta property="og:description" content="第一卷 · 白榆仍停在七年前" />
+    <meta property="og:description" content="失踪七年的姐姐，从一只陌生索罗亚口中叫出了他的小名。" />
     <meta property="og:image" content="./og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=mscvgjmr" />
+    <link rel="stylesheet" href="./styles.css?v=mslunugv" />
   </head>
   <body>
 
     <section class="unlock-gate" id="unlock-gate">
       <form class="unlock-card" id="unlock-form">
-        <div class="unlock-mark">私</div>
-        <h1>私人阅读</h1>
-        <p>正文已加密，请输入阅读密码。</p>
+        <div class="unlock-mark">回</div>
+        <small class="unlock-eyebrow">私人试读 · 第一卷终审版</small>
+        <h1>宝可梦：命途回声</h1>
+        <p>失踪七年的姐姐，从一只陌生索罗亚口中叫出了他的小名。</p>
         <label for="reader-password">阅读密码</label>
         <input id="reader-password" type="password" autocomplete="current-password" required />
         <button type="submit">解锁阅读</button>
@@ -28,6 +29,20 @@
       </form>
     </section>
     <main id="reader" hidden class="reader theme-paper">
+      <section class="book-intro" id="book-intro">
+        <div class="book-intro-card">
+          <img class="book-cover" src="./cover.png" alt="《宝可梦：命途回声》竖版封面" />
+          <div class="book-intro-copy">
+            <div class="intro-volume">第一卷 · 白榆仍停在七年前</div>
+            <h1>失踪七年的姐姐，从一只陌生索罗亚口中叫出了他的小名。</h1>
+            <blockquote>“小路，你为什么没有回来？”</blockquote>
+            <p>档案里没有程岚，只有一只名叫“岚”的索罗亚克。程路跟着眼前的索罗亚回到白榆，也回到那场所有人都说已经结束的事故。</p>
+            <button id="start-reading" type="button">从雨夜开始</button>
+            <small>78章完整第一卷 · 21幅插画 · 手机阅读版</small>
+          </div>
+        </div>
+      </section>
+      <div id="reading-view" hidden>
       <header class="topbar">
         <button class="icon-button" id="open-menu" aria-label="打开章节目录"><span></span><span></span><span></span></button>
         <div class="topbar-title"><span>宝可梦：命途回声</span><small>第一卷 · 白榆仍停在七年前</small></div>
@@ -56,8 +71,8 @@
         </div>
       </div>
       <section class="writing-progress" aria-label="创作进度">
-        <div><small>第一卷状态</small><strong>78 章完整正文 · 终审版</strong></div>
-        <p>全卷 219,279 字；78 章均已通过篇幅、连续性、读者理解与关系边界终审。</p>
+        <div><small>第一卷状态</small><strong>78 章完整正文 · 21 幅插画 · 终审版</strong></div>
+        <p>全卷约 221,168 字；78 章均已通过篇幅、连续性、读者理解与关系边界终审。</p>
       </section>
       <footer><span>手机阅读版 · 阅读位置保存在当前设备</span><span>非官方宝可梦同人创作</span></footer>
       <div class="drawer-backdrop" id="backdrop"></div>
@@ -66,8 +81,9 @@
         <div class="book-note"><span>第一卷</span><p>一只索罗亚变成了程路失踪七年的姐姐。所有记录却说，他家从来没有过这个女儿。</p></div>
         <div class="chapter-list" id="chapter-list"></div>
       </aside>
+      </div>
     </main>
-    <script>window.__READER_VERSION__ = "mscvgjmr";</script>
-    <script src="./unlock.js?v=mscvgjmr"></script>
+    <script>window.__READER_VERSION__ = "mslunugv";</script>
+    <script src="./unlock.js?v=mslunugv"></script>
   </body>
 </html>

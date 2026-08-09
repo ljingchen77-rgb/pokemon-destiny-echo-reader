@@ -58,6 +58,88 @@ button {
   --bar: rgba(24, 33, 31, 0.95);
 }
 
+.book-intro {
+  min-height: 100vh;
+  padding: clamp(24px, 6vw, 72px) 20px;
+  display: grid;
+  place-items: center;
+  color: #eee8dc;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(181, 164, 118, .16), transparent 34rem),
+    linear-gradient(145deg, #0d1516, #18211f 58%, #111817);
+}
+
+.book-intro-card {
+  width: min(940px, 100%);
+  display: grid;
+  grid-template-columns: minmax(230px, 360px) 1fr;
+  gap: clamp(32px, 6vw, 72px);
+  align-items: center;
+}
+
+.book-cover {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, .44);
+}
+
+.book-intro-copy {
+  display: grid;
+  justify-items: start;
+}
+
+.intro-volume {
+  color: #cdbb8b;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+.book-intro-copy h1 {
+  margin: 18px 0 20px;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.28;
+  letter-spacing: .02em;
+}
+
+.book-intro-copy blockquote {
+  margin: 0 0 22px;
+  color: #d8c89f;
+  font-size: clamp(18px, 2.5vw, 24px);
+}
+
+.book-intro-copy p {
+  max-width: 34em;
+  margin: 0;
+  color: #b9beb7;
+  font-family: system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.book-intro-copy button {
+  min-width: 168px;
+  min-height: 50px;
+  margin-top: 28px;
+  padding: 0 24px;
+  color: #17201c;
+  background: #d7c79e;
+  border: 0;
+  border-radius: 999px;
+  font-family: system-ui, sans-serif;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.book-intro-copy small {
+  margin-top: 14px;
+  color: #7f8982;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+}
+
 .chapter-illustration {
   margin: 34px 0 4px;
 }
@@ -483,6 +565,47 @@ footer {
 }
 
 @media (max-width: 640px) {
+  .book-intro {
+    min-height: 100svh;
+    padding: 26px 22px 34px;
+  }
+
+  .book-intro-card {
+    width: min(100%, 410px);
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .book-cover {
+    width: min(62vw, 260px);
+    justify-self: center;
+  }
+
+  .book-intro-copy {
+    justify-items: stretch;
+    text-align: center;
+  }
+
+  .book-intro-copy h1 {
+    margin: 12px 0 14px;
+    font-size: clamp(25px, 8vw, 34px);
+  }
+
+  .book-intro-copy blockquote {
+    margin-bottom: 14px;
+    font-size: 18px;
+  }
+
+  .book-intro-copy p {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .book-intro-copy button {
+    width: 100%;
+    margin-top: 22px;
+  }
+
   .topbar {
     height: 62px;
     padding: 0 12px;
@@ -553,6 +676,7 @@ footer {
   width: 48px; height: 48px; display: grid; place-items: center;
   border-radius: 50%; color: #fff; background: #526653; font-weight: 700;
 }
+.unlock-eyebrow { display: block; margin-top: 18px; color: #718072; letter-spacing: .12em; }
 .unlock-card h1 { margin: 18px 0 8px; }
 .unlock-card p { margin: 0 0 24px; color: #746f64; }
 .unlock-card label { display: block; margin-bottom: 8px; font-size: 14px; }

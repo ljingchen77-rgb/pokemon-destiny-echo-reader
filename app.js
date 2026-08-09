@@ -6,6 +6,12 @@ let theme = "paper";
 let illustrationToken = 0;
 let illustrationUrls = [];
 
+function enterReading() {
+  document.querySelector("#book-intro").hidden = true;
+  document.querySelector("#reading-view").hidden = false;
+  requestAnimationFrame(() => window.scrollTo(0, 0));
+}
+
 if (!Array.isArray(chapters) || chapters.length === 0) {
   document.querySelector("#chapter-title").textContent = "章节加载失败";
   document.querySelector("#chapter-body").innerHTML = "<p>章节数据没有正确载入，请刷新页面后重试。</p>";
@@ -48,16 +54,22 @@ async function renderIllustrations(illustrations) {
   try {
     const loaded = await Promise.all(illustrations.map(async (illustration) => ({
       ...illustration,
-      url: await window.__loadIllustration(illustration.id),
+      url: typeof window.__loadIllustration === "function"
+        ? await window.__loadIllustration(illustration.id)
+        : illustration.src,
     })));
     if (token !== illustrationToken) {
-      loaded.forEach((illustration) => URL.revokeObjectURL(illustration.url));
+      loaded.forEach((illustration) => {
+        if (illustration.url?.startsWith("blob:")) URL.revokeObjectURL(illustration.url);
+      });
       return;
     }
-    illustrationUrls = loaded.map((illustration) => illustration.url);
+    illustrationUrls = loaded
+      .map((illustration) => illustration.url)
+      .filter((url) => url?.startsWith("blob:"));
     holder.innerHTML = loaded.map((illustration) => `
       <figure class="chapter-illustration">
-        <img src="${illustration.url}" alt="${escapeHtml(illustration.alt)}" loading="lazy" />
+        <img src="${escapeHtml(illustration.url)}" alt="${escapeHtml(illustration.alt)}" loading="lazy" decoding="async" />
         <figcaption>${escapeHtml(illustration.caption)}</figcaption>
       </figure>`).join("");
   } catch {
@@ -121,6 +133,7 @@ document.querySelector("#open-menu").addEventListener("click", openMenu);
 document.querySelector("#open-progress").addEventListener("click", openMenu);
 document.querySelector("#close-menu").addEventListener("click", closeMenu);
 document.querySelector("#backdrop").addEventListener("click", closeMenu);
+document.querySelector("#start-reading").addEventListener("click", enterReading);
 
 document.querySelectorAll("[data-theme]").forEach((button) => button.addEventListener("click", () => {
   theme = button.dataset.theme;
@@ -154,6 +167,7 @@ try {
   reader.style.setProperty("--reader-size", `${fontSize}px`);
   document.querySelector("#font-size").textContent = fontSize;
   document.querySelectorAll("[data-theme]").forEach((item) => item.classList.toggle("active", item.dataset.theme === theme));
+  if (current > 0) document.querySelector("#start-reading").textContent = `继续第${current + 1}章`;
   render(false);
   requestAnimationFrame(() => window.scrollTo(0, state.scrollY || 0));
 } catch {
